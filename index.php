@@ -56,7 +56,7 @@
 
 <?php
 
-printImageBlock(ORIGINAL, "./img/poolish.png", "Original 24-hour Pizza Dough", "A Neapolitan pizza made with a poolish preferment boasts a light, airy crust with subtle complexity and a delicate tang from its long, slow fermentation.");
+printImageBlock(ORIGINAL, "./img/poolish.png", "Original 24-hour Pizza Dough", "A Neapolitan pizza made with a poolish preferment boasts a light, airy crust with subtle complexity and a delicate tang from its long, slow fermentation. <strong>If you are a returning user, this was the default landing page.</strong>");
 printImageBlock(DOUBLE_FERMENTED, "./img/double-fermented.png", "Double-fermented 48-hour Pizza Dough", "A Neapolitan pizza made with a double-fermented poolish preferment delivers an exceptionally light, flavorful crust with deep aroma and nuanced tang from its extended, two-stage fermentation.");
 printImageBlock(BIGA_24, "./img/biga-24.png", "Original 24-hour 100% Biga Recipe", "A Neapolitan pizza made with a biga preferment has a crisp yet airy crust with rich, nutty flavors and a subtle sweetness developed through its low-hydration, slow fermentation.");
 printImageBlock(BIGA_48, "./img/biga-48.png", "Ramin's 48-hour 100% Biga Recipe", "A Neapolitan pizza made with a biga preferment fermented over 48 hours features a deeply complex flavor, airy open crumb, and a beautifully blistered crust with a delicate crunch.");
