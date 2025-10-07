@@ -1,3 +1,5 @@
+<?php include "./include/vars.php"; ?>
+
 <!doctype html>
 <!--
 TODO:
@@ -54,7 +56,7 @@ TODO:
     <div class="row">
         
         <!-- Portions -->
-        <div class="col-auto">
+        <div class="col-auto w-auto">
             <div class="input-group mb-3">
             <span class="input-group-text">Portions</span>
             <input type="text" id="inputPortions" class="form-control" aria-label="" value="2">
@@ -63,7 +65,7 @@ TODO:
         </div>
 
         <!-- Portion size -->
-        <div class="col-auto">
+        <div class="col-auto w-auto">
             <div class="input-group mb-3">
             <span class="input-group-text">Portion Size</span>
             <input type="text" id="inputPortionSize" class="form-control" aria-label="" value="250">
@@ -73,7 +75,7 @@ TODO:
         </div>
         <div class="row">
         <!-- Hydration -->
-        <div class="col-auto">
+        <div class="col-auto w-auto">
             <div class="input-group mb-3">
             <span class="input-group-text">Hydration</span>
             <input type="text" id="inputHydration" class="form-control" aria-label="" value="68">
@@ -82,7 +84,7 @@ TODO:
         </div>
 
         <!-- Sourdough Starter % -->
-        <div class="col-auto">
+        <div class="col-auto w-auto">
             <div class="input-group mb-3">
             <span class="input-group-text">Sourdough Starter %</span>
             <input type="text" id="inputSourdoughPercentage" class="form-control" aria-label="" value="5">

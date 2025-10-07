@@ -1,3 +1,5 @@
+<?php include "./include/vars.php"; ?>
+
 <!doctype html>
 
 <head>
@@ -60,7 +62,7 @@
     <div class="container">
     <div class="row">
         <!-- Portions -->
-        <div class="col-md-2">
+        <div class="col-md-2 w-auto">
             <div class="input-group mb-3">
             <span class="input-group-text">Portions</span>
             <input type="text" id="inputPortions" class="form-control" aria-label="" value="2">
@@ -69,7 +71,7 @@
         </div>
 
         <!-- Portion size -->
-        <div class="col-md-3">
+        <div class="col-md-3 w-auto">
             <div class="input-group mb-3">
             <span class="input-group-text">Portion Size</span>
             <input type="text" id="inputPortionSize" class="form-control" aria-label="" value="260">
@@ -78,7 +80,7 @@
         </div>
 
         <!-- Hydration -->
-        <div class="col-md-2">
+        <div class="col-md-2 w-auto">
             <div class="input-group mb-3">
             <span class="input-group-text">Hydration</span>
             <input type="text" id="inputHydration" class="form-control" aria-label="" value="70">
@@ -87,7 +89,7 @@
         </div>
 
         <!-- Salt -->
-        <div class="col-md-2">
+        <div class="col-md-2 w-auto">
             <div class="input-group mb-3">
             <span class="input-group-text">Salt</span>
             <input type="text" id="inputSalt" class="form-control" aria-label="" value="3">

@@ -1,3 +1,5 @@
+<?php include "./include/vars.php"; ?>
+
 <!doctype html>
 
 <head>
@@ -32,7 +34,7 @@
         <p>The calculator for the Original 24-hour Pizza Dough is inspired by <a href="https://www.youtube.com/channel/UCopxVPFM021dpp8L6euX-qA">Vito Iacopelli's youtube videos</a>. His passion for pizza is contagious and I encourage any avid pizza maker to watch his videos.</p>
 
         <h3>Vito does a double fermentation, how come the calculator doesn't?</h3>
-        <p>I made the Original 24-hour Pizza Dough from one of his recipes. Vito has many other recipes, but I have not had the time to make calculators for them.</p>
+        <p>This calculator has now been added. You can find it <a href="<?=DOUBLE_FERMENTED;?>">here</a></p>
     
     </div>
  
