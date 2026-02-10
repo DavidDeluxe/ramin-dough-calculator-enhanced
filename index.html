@@ -1,0 +1,281 @@
+
+
+<!doctype html>
+
+<head>
+  <link rel="shortcut icon" href="">
+  <!-- Bootstrap https://getbootstrap.com/docs/5.3/getting-started/introduction/ -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+
+  <!-- https://icons.getbootstrap.com/#install -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+  <!-- Jquery https://jquery.com/ -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+
+  <!-- Flatpickr https://flatpickr.js.org/ -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src=\"https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.js\"></script>
+
+  <!-- dayJS  https://day.js.org/en/ -->
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  <script>dayjs().format()</script>
+
+  <!-- Theme and Screen Wake Lock -->
+  <script src="theme.js"></script>
+
+  <style>
+    .card:hover{
+      background-color:#f7f7f7;
+    }
+    #footer-container {
+      padding-top: 20px;
+    }
+    #header-container {
+      padding-bottom: 20px;
+    }
+  </style>
+  <meta name="author" content="Ramin Hossaini">
+	<meta name="description" content="A Pizza-dough calculator">
+	<meta name="viewport" content="width=device-width">
+
+  <link rel="shortcut icon" type="image/png" href="favicon.png"/>
+  
+  <title>Ramin's Pizza-dough Calculator</title>
+
+</head> <!-- Head -->
+
+<body>
+
+<div id="header-container"></div>
+
+<div class="container">
+
+   
+    <div class="row g-3 align-items-center">
+        <h2 class="pt-3">Ramin's Pizza Calculators</h2>
+    </div>
+    <div class="row g-3 align-items-center">
+
+
+<a href="./poolish-24.html" style="text-decoration: none;">
+  <div class="card mb-3" style="">
+    <div class="row g-0">
+      <div class="col-md-3">
+        <img src="./img/poolish.png" class="img-fluid rounded-start" alt="Original 24-hour Pizza Dough" style="width: 100%; height: 280px; object-fit: cover;">
+      </div>
+      <div class="col-md-9">
+        <div class="card-body">
+          <h5 class="card-title">Original 24-hour Pizza Dough</h5>
+          <p class="card-text">A Neapolitan pizza made with a poolish preferment boasts a light, airy crust with subtle complexity and a delicate tang from its long, slow fermentation. <strong>If you are a returning user, this was the default landing page.</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>
+<a href="./poolish-48.html" style="text-decoration: none;">
+  <div class="card mb-3" style="">
+    <div class="row g-0">
+      <div class="col-md-3">
+        <img src="./img/double-fermented.png" class="img-fluid rounded-start" alt="Double-fermented 48-hour Pizza Dough" style="width: 100%; height: 280px; object-fit: cover;">
+      </div>
+      <div class="col-md-9">
+        <div class="card-body">
+          <h5 class="card-title">Double-fermented 48-hour Pizza Dough</h5>
+          <p class="card-text">A Neapolitan pizza made with a double-fermented poolish preferment delivers an exceptionally light, flavorful crust with deep aroma and nuanced tang from its extended, two-stage fermentation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>
+<a href="./biga-24.html" style="text-decoration: none;">
+  <div class="card mb-3" style="">
+    <div class="row g-0">
+      <div class="col-md-3">
+        <img src="./img/biga-24.png" class="img-fluid rounded-start" alt="Original 24-hour 100% Biga Recipe" style="width: 100%; height: 280px; object-fit: cover;">
+      </div>
+      <div class="col-md-9">
+        <div class="card-body">
+          <h5 class="card-title">Original 24-hour 100% Biga Recipe</h5>
+          <p class="card-text">A Neapolitan pizza made with a biga preferment has a crisp yet airy crust with rich, nutty flavors and a subtle sweetness developed through its low-hydration, slow fermentation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>
+<a href="./biga-24-48.html" style="text-decoration: none;">
+  <div class="card mb-3" style="">
+    <div class="row g-0">
+      <div class="col-md-3">
+        <img src="./img/biga-24-48.png" class="img-fluid rounded-start" alt="Original 24-hour 100% Biga Recipe" style="width: 100%; height: 280px; object-fit: cover;">
+      </div>
+      <div class="col-md-9">
+        <div class="card-body">
+          <h5 class="card-title">A mix of the original 24-hour and Ramin's 48h 100% Biga Recipe</h5>
+          <p class="card-text">A Neapolitan pizza made with a biga preferment has a crisp yet airy crust with rich, nutty flavors and a subtle sweetness developed through its low-hydration, slow fermentation. Perfect for two days.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>
+<a href="./biga-48.html" style="text-decoration: none;">
+  <div class="card mb-3" style="">
+    <div class="row g-0">
+      <div class="col-md-3">
+        <img src="./img/biga-48.png" class="img-fluid rounded-start" alt="Ramin's 48-hour 100% Biga Recipe" style="width: 100%; height: 280px; object-fit: cover;">
+      </div>
+      <div class="col-md-9">
+        <div class="card-body">
+          <h5 class="card-title">Ramin's 48-hour 100% Biga Recipe</h5>
+          <p class="card-text">A Neapolitan pizza made with a biga preferment fermented over 48 hours features a deeply complex flavor, airy open crumb, and a beautifully blistered crust with a delicate crunch.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>
+<a href="./sourdough.html" style="text-decoration: none;">
+  <div class="card mb-3" style="">
+    <div class="row g-0">
+      <div class="col-md-3">
+        <img src="./img/sourdough.png" class="img-fluid rounded-start" alt="Ramin's Sourdough Pizza" style="width: 100%; height: 280px; object-fit: cover;">
+      </div>
+      <div class="col-md-9">
+        <div class="card-body">
+          <h5 class="card-title">Ramin's Sourdough Pizza</h5>
+          <p class="card-text">A Neapolitan pizza made with a sourdough starter offers a naturally leavened crust with a tangy depth of flavor, chewy texture, and rustic character.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>
+
+<div class="table-responsive">
+  <table class="table table-striped fa-check text-successtable-border border-light">
+    <thead class="border-light">
+      <tr>
+        <th scope="col"></th>
+        <th scope="col"><strong><a href="./poolish-24.html">Original Poolish</a></strong></th>
+        <th scope="col"><strong><a href="./poolish-48.html">48 Hr Poolish</a></strong></th>
+        <th scope="col"><strong><a href="./biga-24.html">24 Hr Biga</a></strong></th>
+        <th scope="col"><strong><a href="./biga-48.html">48 Hr Biga</a></strong></th>
+        <th scope="col"><strong><a href="./sourdough.html">Sourdough</a></strong></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Instant yeast</th>
+        <td><i class="bi bi-check-lg text-success"></i></td>
+        <td><i class="bi bi-check-lg text-success"></i></td>
+        <td><i class="bi bi-check-lg text-success"></i></td>
+        <td><i class="bi bi-check-lg text-success"></i></td>
+        <td><i class="bi bi-x-lg text-danger"></i></td>
+      </tr>
+      <tr>
+        <th scope="row">Sourdough Starter</th>
+        <td><i class="bi bi-x-lg text-danger"></i></td>
+        <td><i class="bi bi-x-lg text-danger"></i></td>
+        <td><i class="bi bi-x-lg text-danger"></i></td>
+        <td><i class="bi bi-x-lg text-danger"></i></td>
+        <td><i class="bi bi-check-lg text-success"></i></td>
+      </tr>
+      <tr>
+        <th scope="row">24 Hours</th>
+        <td><i class="bi bi-check-lg text-success"></i></td>
+        <td><i class="bi bi-x-lg text-danger"></i></td>
+        <td><i class="bi bi-check-lg text-success"></i></td>
+        <td><i class="bi bi-x-lg text-danger"></i></td>
+        <td><i class="bi bi-check-lg text-success"></i></td>
+      </tr>
+      <tr>
+        <th scope="row">48 Hours</th>
+        <td><i class="bi bi-x-lg text-danger"></i></td>
+        <td><i class="bi bi-check-lg text-success"></i></td>
+        <td><i class="bi bi-x-lg text-danger"></i></td>
+        <td><i class="bi bi-check-lg text-success"></i></td>
+        <td><i class="bi bi-check-lg text-success"></i></td>
+      </tr>
+      <tr>
+        <th scope="row">Flavour</th>
+        <td>Delicate, Subtle</i></td>
+        <td>Tangy</i></td>
+        <td>Delicate, Subtle</i></td>
+        <td>Deep Complex</i></td>
+        <td>Tangy</i></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+</div> <!-- Container -->
+
+<div id="footer-container"></div>
+
+<script>
+    function checkSavedDataBanner() {
+        const saved = localStorage.getItem('pizzaCalculatorSession');
+        if (saved) {
+            try {
+                const data = JSON.parse(saved);
+                const currentPage = 'index';
+                if (data.page && data.page !== currentPage) {
+                    showResumeBanner(data);
+                }
+            } catch(e) {
+                console.error('Error checking saved data:', e);
+            }
+        }
+    }
+
+    function showResumeBanner(data) {
+        const pageNames = {
+            'poolish-24': 'Original 24-hour Pizza Dough',
+            'poolish-48': 'Double-fermented 48-hour Pizza Dough',
+            'biga-24': 'Original 24-hour 100% Biga Recipe',
+            'biga-24-48': 'A mix of the original 24-hour and Ramin\'s 48h 100% Biga Recipe',
+            'biga-48': "Ramin's 48-hour 100% Biga Recipe",
+            'sourdough': "Ramin's Sourdough Pizza"
+        };
+        
+        const pageFile = data.page + '.html';
+        const pageName = pageNames[data.page] || data.page;
+        
+        const bannerHtml = `
+            <div class="alert alert-info alert-dismissible fade show" role="alert" id="resumeBanner">
+                <strong>Resume Previous Session</strong><br>
+                You have saved settings for <strong>${pageName}</strong>
+                <div class="mt-2">
+                    <a href="${pageFile}" class="btn btn-sm btn-primary">Resume</a>
+                    <button type="button" class="btn btn-sm btn-secondary" onclick="document.getElementById('resumeBanner').remove()">Dismiss</button>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        `;
+        
+        const headerContainer = document.getElementById('header-container');
+        if (headerContainer) {
+            headerContainer.insertAdjacentHTML('afterend', bannerHtml);
+        }
+    }
+
+    $( document ).ready(function() {
+        // Fetch and load header
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('header-container').innerHTML = data)
+            .catch(error => console.error('Error loading header:', error));
+
+        // Fetch and load footer
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('footer-container').innerHTML = data)
+            .catch(error => console.error('Error loading footer:', error));
+
+        // Check for saved session and show banner if needed
+        checkSavedDataBanner();
+    });
+</script>
+
+</body>
+
+</html>

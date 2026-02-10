@@ -1,4 +1,3 @@
-<?php include "./include/vars.php"; ?>
 
 <!doctype html>
 <!--
@@ -9,10 +8,6 @@ TODO:
         - Note on 3% salt value
 -->
 <head>
-    <?php
-        //Add analytics code here
-        include_once "gtag.txt";
-    ?>
     <meta name="author" content="Ramin Hossaini">
 	<meta name="description" content="A Sourdough Pizza-dough calculator">
 	<meta name="viewport" content="width=device-width">
@@ -29,22 +24,29 @@ TODO:
 
     <!-- Flatpickr https://flatpickr.js.org/ -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.js"></script>
 
     <!-- dayJS  https://day.js.org/en/ -->
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <script>dayjs().format()</script>
+
+    <!-- Theme and Screen Wake Lock -->
+    <script src="theme.js"></script>
 
     <title>Ramin's Pizza-dough Calculator</title>
 </head>
 
 <body>
 
+<div id="header-container"></div>
 
 <div class="container">
-    <?php include './include/navbar.php';?>
-
-    <h1>Ramin's Sourdough Pizza Recipe</h1>
+    <div class="d-flex align-items-center gap-2 mb-3">
+        <h1 class="m-0">Ramin's Sourdough Pizza Recipe</h1>
+        <button type="button" class="btn btn-warning btn-sm" id="resetButton" title="Reset all values to default">
+            <i class="bi bi-arrow-counterclockwise"></i> Reset
+        </button>
+    </div>
     <div class="row">
         <div class="col">
             <div class="alert alert-warning" id="BETA-WARNING" role="alert">
@@ -89,6 +91,15 @@ TODO:
             <span class="input-group-text">Sourdough Starter %</span>
             <input type="text" id="inputSourdoughPercentage" class="form-control" aria-label="" value="5">
             <span class="input-group-text">%</span>
+            </div>
+        </div>
+        
+        <!-- Clear Button Only -->
+        <div class="col-auto w-auto">
+            <div class="input-group mb-3">
+            <button type="button" class="btn btn-danger btn-sm" id="clearSessionBtn" title="Clear saved settings" style="display:none;">
+                <i class="bi bi-trash"></i> Clear
+            </button>
             </div>
         </div>
     </div>
@@ -267,11 +278,75 @@ TODO:
 
     <?php include './include/footer.php'; ?>
 
-
 </div> <!-- container -->
+
+<div id="footer-container"></div>
 
 <script>
     var debug = false;
+
+    function saveSessionData() {
+        const sessionData = {
+            page: 'sourdough',
+            portions: document.getElementById('inputPortions').value,
+            portionSize: document.getElementById('inputPortionSize').value,
+            hydration: document.getElementById('inputHydration').value,
+            sourdoughPercentage: document.getElementById('inputSourdoughPercentage').value,
+            timestamp: new Date().toISOString()
+        };
+        localStorage.setItem('pizzaCalculatorSession', JSON.stringify(sessionData));
+        updateClearButtonVisibility();
+    }
+
+    function loadSessionData() {
+        const saved = localStorage.getItem('pizzaCalculatorSession');
+        if (saved) {
+            try {
+                const data = JSON.parse(saved);
+                document.getElementById('inputPortions').value = data.portions || '2';
+                document.getElementById('inputPortionSize').value = data.portionSize || '250';
+                document.getElementById('inputHydration').value = data.hydration || '68';
+                document.getElementById('inputSourdoughPercentage').value = data.sourdoughPercentage || '5';
+                updateClearButtonVisibility();
+            } catch(e) {
+                console.error('Error loading session data:', e);
+            }
+        }
+    }
+
+    function clearSessionData() {
+        if (confirm('Are you sure you want to clear saved settings?')) {
+            localStorage.removeItem('pizzaCalculatorSession');
+            updateClearButtonVisibility();
+        }
+    }
+
+    function updateClearButtonVisibility() {
+        const hasSaved = localStorage.getItem('pizzaCalculatorSession');
+        const clearBtn = document.getElementById('clearSessionBtn');
+        if (clearBtn) {
+            clearBtn.style.display = hasSaved ? 'block' : 'none';
+        }
+    }
+
+    function resetAllValues() {
+        if (confirm('Are you sure you want to reset all values to default? This will also clear your saved session.')) {
+            // Clear localStorage
+            localStorage.removeItem('pizzaCalculatorSession');
+            
+            // Reset form fields to defaults
+            document.getElementById('inputPortions').value = '2';
+            document.getElementById('inputPortionSize').value = '250';
+            document.getElementById('inputHydration').value = '68';
+            document.getElementById('inputSourdoughPercentage').value = '5';
+            
+            // Reset visible button state
+            updateClearButtonVisibility();
+            
+            // Refresh calculations
+            refresh_data();
+        }
+    }
 
     function refresh_data()
     {
@@ -341,6 +416,35 @@ TODO:
 
     //Initial refresh of numbers when page loads
     $( document ).ready(function() {
+        // Fetch and load header
+        fetch('header.html')
+            .then(response => response.text())
+        .then(data => {
+            document.getElementById('header-container').innerHTML = data;
+            // Initialize theme and wake lock after header is loaded
+            initializeThemeAndWakeLock();
+        })
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('footer-container').innerHTML = data)
+            .catch(error => console.error('Error loading footer:', error));
+
+        // Set Clear button click handler
+        const clearBtn = document.getElementById('clearSessionBtn');
+        if (clearBtn) {
+            clearBtn.addEventListener('click', clearSessionData);
+        }
+    
+    // Set Reset button click handler
+    const resetBtn = document.getElementById('resetButton');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', resetAllValues);
+    }
+        const inputs = document.querySelectorAll('#inputPortions, #inputPortionSize, #inputHydration, #inputSourdoughPercentage');
+        inputs.forEach(input => {
+            input.addEventListener('change', saveSessionData);
+        });
+
         refresh_data();
     });
 

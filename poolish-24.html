@@ -1,12 +1,7 @@
-<?php include "./include/vars.php"; ?>
 
 <!doctype html>
 
 <head>
-    <?php
-        //Add analytics code here
-        include_once "gtag.txt";
-    ?>
     <meta name="author" content="Ramin Hossaini">
 	<meta name="description" content="A Pizza-dough calculator">
 	<meta name="viewport" content="width=device-width">
@@ -23,36 +18,55 @@
 
     <!-- Flatpickr https://flatpickr.js.org/ -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.js"></script>
 
     <!-- dayJS  https://day.js.org/en/ -->
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <script>dayjs().format()</script>
 
+    <!-- Theme and Screen Wake Lock -->
+    <script src="theme.js"></script>
+
     <title>Ramin's Pizza-dough Calculator</title>
+    <style>
+    .card:hover{
+      background-color:#f7f7f7;
+    }
+    #footer-container {
+      padding-top: 20px;
+    }
+    #header-container {
+      padding-bottom: 20px;
+    }
+  </style>
 </head>
 
 <body>
 
+<div id="header-container"></div>
 
 <div class="container">
-    <?php include './include/navbar.php';?>
 
-    <h2>Original 24-hour Pizza Dough</h2>
+    <div class="d-flex align-items-center gap-2 mb-3">
+        <h2 class="m-0">Original 24-hour Pizza Dough</h2>
+        <button type="button" class="btn btn-warning btn-sm" id="resetButton" title="Reset all values to default">
+            <i class="bi bi-arrow-counterclockwise"></i> Reset
+        </button>
+    </div>
 
     <!-- DateTime Picker -->
     <div class="row g-3 align-items-center timeModule mb-3">
         <div class="col-auto">
             <div class="input-group">
                 <span class="input-group-text">Planned Date to Eat</span>
-                <input type="text" id="inputDate" class="form-control" aria-label="" value="<?=date("Y-m-d");?>">
+                <input type="text" id="inputDate" class="form-control" aria-label="">
                 <span class="input-group-text"><i class='bi bi-calendar-week'></i></span>
             </div>
         </div>
         <div class="col-auto">
             <div class="input-group">
                 <span class="input-group-text">Time</i></span>
-                <input type="text" id="inputTime" class="form-control" aria-label="" value="<?=date("H")+25;?>">
+                <input type="text" id="inputTime" class="form-control" aria-label="">
                 <span class="input-group-text"><i class='bi bi-clock'></i></span>
             </div>
         </div>
@@ -95,6 +109,15 @@
             <input type="text" id="inputSalt" class="form-control" aria-label="" value="3">
             <span class="input-group-text">%</span>
             </div> <!-- Input group -->
+        </div>
+        
+        <!-- Clear Button Only -->
+        <div class="col-md-2 w-auto">
+            <div class="input-group mb-3">
+            <button type="button" class="btn btn-danger btn-sm" id="clearSessionBtn" title="Clear saved settings" style="display:none;">
+                <i class="bi bi-trash"></i> Clear
+            </button>
+            </div>
         </div>
     </div>
     </div>
@@ -266,12 +289,136 @@
         </div>
     </div>
 
-    <?php include './include/footer.php'; ?>
+</div> <!-- container -->
+</div> <!-- container -->
 
-</div> <!-- container -->
-</div> <!-- container -->
+<div id="footer-container"></div>
 
 <script>
+
+function saveSessionData() {
+    const sessionData = {
+        page: 'poolish-24',
+        date: document.getElementById('inputDate').value,
+        time: document.getElementById('inputTime').value,
+        portions: document.getElementById('inputPortions').value,
+        portionSize: document.getElementById('inputPortionSize').value,
+        hydration: document.getElementById('inputHydration').value,
+        salt: document.getElementById('inputSalt').value,
+        timestamp: new Date().toISOString()
+    };
+    localStorage.setItem('pizzaCalculatorSession', JSON.stringify(sessionData));
+    updateClearButtonVisibility();
+}
+
+function loadSessionData() {
+    const saved = localStorage.getItem('pizzaCalculatorSession');
+    if (saved) {
+        try {
+            const data = JSON.parse(saved);
+            document.getElementById('inputDate').value = data.date || '';
+            document.getElementById('inputTime').value = data.time || '';
+            document.getElementById('inputPortions').value = data.portions || '2';
+            document.getElementById('inputPortionSize').value = data.portionSize || '260';
+            document.getElementById('inputHydration').value = data.hydration || '70';
+            document.getElementById('inputSalt').value = data.salt || '3';
+            updateClearButtonVisibility();
+        } catch(e) {
+            console.error('Error loading session data:', e);
+        }
+    }
+}
+
+function clearSessionData() {
+    if (confirm('Are you sure you want to clear saved settings?')) {
+        localStorage.removeItem('pizzaCalculatorSession');
+        updateClearButtonVisibility();
+    }
+}
+
+function updateClearButtonVisibility() {
+    const hasSaved = localStorage.getItem('pizzaCalculatorSession');
+    const clearBtn = document.getElementById('clearSessionBtn');
+    if (clearBtn) {
+        clearBtn.style.display = hasSaved ? 'block' : 'none';
+    }
+}
+
+function resetAllValues() {
+    if (confirm('Are you sure you want to reset all values to default? This will also clear your saved session.')) {
+        // Clear localStorage
+        localStorage.removeItem('pizzaCalculatorSession');
+        
+        // Reset form fields to defaults
+        document.getElementById('inputPortions').value = '2';
+        document.getElementById('inputPortionSize').value = '260';
+        document.getElementById('inputHydration').value = '70';
+        document.getElementById('inputSalt').value = '3';
+        
+        // Reset date/time to today and next hour
+        const today = new Date();
+        const defaultDate = today.toISOString().split('T')[0];
+        document.getElementById('inputDate').value = defaultDate;
+        
+        const nextHour = new Date(today);
+        nextHour.setHours(nextHour.getHours() + 1, 0, 0, 0);
+        const defaultTime = String(nextHour.getHours()).padStart(2, '0') + ':' + String(nextHour.getMinutes()).padStart(2, '0');
+        document.getElementById('inputTime').value = defaultTime;
+        
+        // Reset visible button state
+        updateClearButtonVisibility();
+        
+        // Refresh calculations
+        refresh_data();
+    }
+}
+
+// Utility function to check for saved data on non-recipe pages
+function checkSavedDataBanner() {
+    const saved = localStorage.getItem('pizzaCalculatorSession');
+    if (saved) {
+        try {
+            const data = JSON.parse(saved);
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            if (data.page && data.page !== currentPage.replace('.html', '')) {
+                // Show banner only if on a different page
+                showResumeBanner(data);
+            }
+        } catch(e) {
+            console.error('Error checking saved data:', e);
+        }
+    }
+}
+
+function showResumeBanner(data) {
+    const pageNames = {
+        'poolish-24': 'Original 24-hour Pizza Dough',
+        'double-fermented': 'Double-fermented 48-hour Pizza Dough',
+        'biga-recipe-24': 'Original 24-hour 100% Biga Recipe',
+        'biga-recipe': "Ramin's 48-hour 100% Biga Recipe",
+        'sourdough-pizza-recipe': "Ramin's Sourdough Pizza"
+    };
+    
+    const pageFile = data.page + '.html';
+    const pageName = pageNames[data.page] || data.page;
+    
+    const bannerHtml = `
+        <div class="alert alert-info alert-dismissible fade show" role="alert" id="resumeBanner">
+            <strong>Resume Previous Session</strong><br>
+            You have saved settings for <strong>${pageName}</strong>
+            <div class="mt-2">
+                <a href="${pageFile}" class="btn btn-sm btn-primary">Resume</a>
+                <button type="button" class="btn btn-sm btn-secondary" onclick="document.getElementById('resumeBanner').remove()">Dismiss</button>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    `;
+    
+    const headerContainer = document.getElementById('header-container');
+    if (headerContainer) {
+        headerContainer.insertAdjacentHTML('afterend', bannerHtml);
+    }
+}
 
 function refresh_data() {
     var portionSize = parseInt($("#inputPortionSize").val());
@@ -287,7 +434,7 @@ function refresh_data() {
 
     // Time calculations. Working backwards from time to eat
     var dateTimeString = $("#inputDate").val() + " " + $("#inputTime").val();
-    var eatDateTime = dayjs(dateTimeString);
+    var eatDateTime = dayjs(dateTimeString, "YYYY-MM-DD HH:mm");
 
     //work backwards
     // The last steps should be started 2-3 hours before the eating time
@@ -346,7 +493,6 @@ function refresh_data() {
     $("#inputRemainingFlour").val(remainingFlour);
     $("#inputRemainingWater").val(remainingWater);
     $("#inputRemainingSalt").val(remainingSalt);
-
 }
 
 //Refresh when key is pressed
@@ -366,20 +512,80 @@ $( document ).ready(function() {
 
     //Print button
     const printButton = document.getElementById("print-button");
-    printButton.addEventListener('click', function() {
-        window.print();
-    });
+    if (printButton) {
+        printButton.addEventListener('click', function() {
+            window.print();
+        });
+    }
 
-    $("#inputDate").flatpickr({
-        minDate: "today"
-    });
+    // Fetch and load header
+    fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header-container').innerHTML = data;
+            // Initialize theme and wake lock after header is loaded
+            initializeThemeAndWakeLock();
+        })
+        .catch(error => console.error('Error loading header:', error));
 
-    $("#inputTime").flatpickr({
-        enableTime: true,
-        noCalendar: true,
-        dateFormat: "H:i",
-        time_24hr: true
+    // Fetch and load footer
+    fetch('footer.html')
+        .then(response => response.text())
+        .then(data => document.getElementById('footer-container').innerHTML = data)
+        .catch(error => console.error('Error loading footer:', error));
+
+    // Set Clear button click handler
+    const clearBtn = document.getElementById('clearSessionBtn');
+    if (clearBtn) {
+        clearBtn.addEventListener('click', clearSessionData);
+    }
+    
+    // Set Reset button click handler
+    const resetBtn = document.getElementById('resetButton');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', resetAllValues);
+    }
+    
+    // Load saved session data
+    loadSessionData();
+    
+    // Auto-save on input change
+    const inputs = document.querySelectorAll('#inputDate, #inputTime, #inputPortions, #inputPortionSize, #inputHydration, #inputSalt');
+    inputs.forEach(input => {
+        input.addEventListener('change', saveSessionData);
     });
+    
+    // Initialize flatpickr pickers
+    if (typeof flatpickr !== 'undefined') {
+        // respect loaded session values; only use defaults if inputs are empty
+        const existingDate = (document.getElementById("inputDate").value || "").trim();
+        const existingTime = (document.getElementById("inputTime").value || "").trim();
+        const today = new Date();
+        const defaultDate = existingDate ? existingDate : today.toISOString().split('T')[0];
+        const nextHour = new Date(today);
+        nextHour.setHours(nextHour.getHours() + 1, 0, 0, 0);
+        const defaultTime = existingTime ? existingTime : String(nextHour.getHours()).padStart(2, '0') + ':' + String(nextHour.getMinutes()).padStart(2, '0');
+
+        const datePickerDate = flatpickr("#inputDate", {
+            minDate: "today",
+            dateFormat: "Y-m-d",
+            defaultDate: defaultDate
+        });
+
+        const datePickerTime = flatpickr("#inputTime", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr: true,
+            defaultDate: defaultTime
+        });
+    } else {
+        console.error("Flatpickr library failed to load");
+    }
+
+    // Trigger change event to update calculations
+    $("#inputDate").change();
+    $("#inputTime").change();
 
     refresh_data();
     

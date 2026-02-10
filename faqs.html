@@ -1,0 +1,119 @@
+<!doctype html>
+
+<head>
+    <meta name="author" content="Ramin Hossaini">
+	<meta name="description" content="A Pizza-dough calculator">
+	<meta name="viewport" content="width=device-width">
+
+    <link rel="shortcut icon" type="image/png" href="favicon.png"/>
+    
+    <!-- Bootstrap https://getbootstrap.com/docs/5.3/getting-started/introduction/ -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <!-- Jquery https://jquery.com/ -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- dayJS  https://day.js.org/en/ -->
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script>dayjs().format()</script>
+
+    <!-- Theme and Screen Wake Lock -->
+    <script src="theme.js"></script>
+    
+    <title>FAQs</title>
+</head>
+
+<body>
+
+<div id="header-container"></div>
+
+<div class="container">
+   
+    <div class="row g-3 align-items-center">
+        <h2>FAQs</h2>
+
+        <h3>Why is this open source?</h3>
+        <p>Pizza has a lot of strong opinions. Food and taste is subjective. I've made this project open source so that anyone can tailor the calculator to their own tastes and needs. The Github project can be found <a href="https://github.com/raminhossaini/ramin-dough-calculator">here</a>.</p>
+
+        <h3>Who came up with the Original 24-hour Pizza Dough?</h3>
+        <p>The calculator for the Original 24-hour Pizza Dough is inspired by <a href="https://www.youtube.com/channel/UCopxVPFM021dpp8L6euX-qA">Vito Iacopelli's youtube videos</a>. His passion for pizza is contagious and I encourage any avid pizza maker to watch his videos.</p>
+
+        <h3>Vito does a double fermentation, how come the calculator doesn't?</h3>
+        <p>This calculator has now been added. You can find it <a href="double-fermented.html">here</a></p>
+    
+    </div>
+
+</div> <!-- container -->
+
+<div id="footer-container"></div>
+
+<script>
+    function checkSavedDataBanner() {
+        const saved = localStorage.getItem('pizzaCalculatorSession');
+        if (saved) {
+            try {
+                const data = JSON.parse(saved);
+                const currentPage = 'faqs';
+                if (data.page && data.page !== currentPage) {
+                    showResumeBanner(data);
+                }
+            } catch(e) {
+                console.error('Error checking saved data:', e);
+            }
+        }
+    }
+
+    function showResumeBanner(data) {
+        const pageNames = {
+            'poolish-24': 'Original 24-hour Pizza Dough',
+            'double-fermented': 'Double-fermented 48-hour Pizza Dough',
+            'biga-recipe-24': 'Original 24-hour 100% Biga Recipe',
+            'biga-recipe': "Ramin's 48-hour 100% Biga Recipe",
+            'sourdough-pizza-recipe': "Ramin's Sourdough Pizza"
+        };
+        
+        const pageFile = data.page + '.html';
+        const pageName = pageNames[data.page] || data.page;
+        
+        const bannerHtml = `
+            <div class="alert alert-info alert-dismissible fade show" role="alert" id="resumeBanner">
+                <strong>Resume Previous Session</strong><br>
+                You have saved settings for <strong>${pageName}</strong>
+                <div class="mt-2">
+                    <a href="${pageFile}" class="btn btn-sm btn-primary">Resume</a>
+                    <button type="button" class="btn btn-sm btn-secondary" onclick="document.getElementById('resumeBanner').remove()">Dismiss</button>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        `;
+        
+        const headerContainer = document.getElementById('header-container');
+        if (headerContainer) {
+            headerContainer.insertAdjacentHTML('afterend', bannerHtml);
+        }
+    }
+
+    $( document ).ready(function() {
+        // Fetch and load header
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('header-container').innerHTML = data)
+            .catch(error => console.error('Error loading header:', error));
+
+        // Fetch and load footer
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('footer-container').innerHTML = data)
+            .catch(error => console.error('Error loading footer:', error));
+
+        // Check for saved session and show banner if needed
+        checkSavedDataBanner();
+    });
+</script>
+
+</body>
+
+
+</html>
